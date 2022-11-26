@@ -1,0 +1,47 @@
+﻿@using ASPUI.Models
+@model IEnumerable<BasketViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Basket</h1>
+<hr />
+<table class="table table-bordered container">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Product Quantity</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th class="col-md-2"><img src="/Images/@item.Product.ImageUrl" class="w-100"/></th>
+                    <td class="col-md-2">@item.Product.Name</td>
+                    <td class="col-md-2">@item.Product.Price ₺</td>
+                    <td class="col-md-2">@item.Quantity</td>
+                    <td class="col-md-2">@(item.Quantity * item.Product.Price) ₺</td>
+                    <td class="col-md-2"><a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.Product.Id">Remove</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td>@ViewBag.Total</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<a class="btn btn-primary float-end mb-5" asp-action="Index" asp-controller="Home">Continue Shopping</a>
+
+
+
